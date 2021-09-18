@@ -23,11 +23,11 @@ namespace ApiCatalogoJogos.Controllers.V1
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<JogoViewModel>>> Obter([FromQuery, Range(1, int.MaxValue) int pagina = 1, [FromQuery, Range(1, 50)] int quantidade = 5)
+        public async Task<ActionResult<IEnumerable<JogoViewModel>>> Obter([FromQuery, Range(1, int.MaxValue)] int pagina = 1, [FromQuery, Range(1, 50)] int quantidade = 5)
         {
             var jogos = await _jogoService.Obter(pagina, quantidade);
 
-            if (jogo == null)
+            if (jogos == null)
                 return NoContent();
 
             return Ok(jogos);
@@ -54,8 +54,7 @@ namespace ApiCatalogoJogos.Controllers.V1
                 var jogo = await _jogoService.Inserir(jogoInputModel);
                 return Ok(jogo);
             }
-            //catch(JogoJaCadastradoException ex)
-            catch (Exception ex)
+            catch(JogoJaCadastradoException ex)
             {
                 return UnprocessableEntity("Já existe um jogo com este nome para eseta produtora.");
             }
@@ -70,8 +69,7 @@ namespace ApiCatalogoJogos.Controllers.V1
                 await _jogoService.Atualizar(idJogo, jogoInputModel);
                 return Ok();
             }
-            //catch(JogoJaCadastradoException ex)
-            catch (Exception ex)
+            catch(JogoJaCadastradoException ex)
             {
                 return NotFound("Não existe ste jogo.");
             }
@@ -87,8 +85,7 @@ namespace ApiCatalogoJogos.Controllers.V1
 
                 return Ok();
             }
-            //catch(JogoJaCadastradoException ex)
-            catch (Exception ex)
+            catch(JogoJaCadastradoException ex)
             {
                 return NotFound("Não existe ste jogo.");
             }
@@ -104,8 +101,7 @@ namespace ApiCatalogoJogos.Controllers.V1
 
                 return Ok();
             }
-            //catch(JogoJaCadastradoException ex)
-            catch (Exception ex)
+            catch(JogoJaCadastradoException ex)
             {
                 return NotFound("Não existe ste jogo.");
             }
