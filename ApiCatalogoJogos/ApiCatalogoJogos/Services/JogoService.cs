@@ -1,6 +1,7 @@
 ﻿
 
 using ApiCatalogoJogos.Entities;
+using ApiCatalogoJogos.Exceptions;
 using ApiCatalogoJogos.InputModel;
 using ApiCatalogoJogos.Repositories;
 using ApiCatalogoJogos.ViewModel;
@@ -106,13 +107,16 @@ namespace ApiCatalogoJogos.Services
 
             if (entidadeJogo == null)
                 throw JogoNaoCadastradoExeception();
-
+             
             entidadeJogo.Preco = preco;
 
             await _jogoRepository.Atualizar(entidadeJogo);
         }
 
-
+        private Exception JogoNaoCadastradoExeception()
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task Remover(Guid id)
         {
